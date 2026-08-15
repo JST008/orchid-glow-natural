@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Loader2, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatPrice, type ShopifyProduct } from "@/lib/shopify";
+import { bestSavings, isBundle } from "@/lib/bundles";
 import { useCartStore } from "@/stores/cartStore";
 
 export function ProductCard({ product }: { product: ShopifyProduct }) {
@@ -13,6 +14,8 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
   const image = node.images.edges[0]?.node;
   const price = node.priceRange.minVariantPrice;
   const hasTiers = node.variants.edges.length > 1;
+  const savings = bestSavings(product);
+  const bundle = isBundle(product);
 
   const handleAdd = async () => {
     if (!variant) return;
@@ -31,8 +34,18 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
       <Link
         to="/product/$handle"
         params={{ handle: node.handle }}
-        className="block aspect-square overflow-hidden bg-secondary/40"
+        className="relative block aspect-square overflow-hidden bg-secondary/40"
       >
+        {savings && (
+          <span className="absolute left-3 top-3 z-10 rounded-full bg-primary px-3 py-1 text-[11px] font-semibold text-primary-foreground shadow-soft">
+            Save {formatPrice(savings.amount, price.currencyCode)}
+          </span>
+        )}
+        {bundle && !savings && (
+          <span className="absolute left-3 top-3 z-10 rounded-full bg-primary px-3 py-1 text-[11px] font-semibold text-primary-foreground shadow-soft">
+            Bundle
+          </span>
+        )}
         {image ? (
           <img
             src={image.url}
@@ -59,7 +72,14 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
           <span className="text-lg font-semibold text-primary">
             {formatPrice(price.amount, price.currencyCode)}
           </span>
-          {hasTiers && <span className="text-xs text-muted-foreground">bundle deals available</span>}
+          {savings && (
+            <span className="text-xs text-muted-foreground">
+              {savings.percent}% off vs buying separately
+            </span>
+          )}
+          {!savings && hasTiers && (
+            <span className="text-xs text-muted-foreground">bundle deals available</span>
+          )}
         </div>
 
         <div className="mt-4 flex flex-col gap-2">
