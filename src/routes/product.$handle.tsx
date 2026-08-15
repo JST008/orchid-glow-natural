@@ -13,6 +13,7 @@ import { BadgeCheck, Loader2, Lock, Minus, Plus, ShoppingBag, Truck } from "luci
 import { formatPrice } from "@/lib/shopify";
 import { productQuery } from "@/lib/productQueries";
 import { useCartStore } from "@/stores/cartStore";
+import { ProductReviews } from "@/components/store/ProductReviews";
 
 export const Route = createFileRoute("/product/$handle")({
   loader: async ({ context, params }) => {
@@ -240,15 +241,12 @@ function ProductPage() {
                 <Link to="/returns-policy" className="text-primary underline">returns page</Link>.
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="reviews">
-              <AccordionTrigger>Reviews</AccordionTrigger>
-              <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
-                No reviews yet. Bought this product? Message us your honest feedback and we'll
-                feature verified reviews here.
-              </AccordionContent>
-            </AccordionItem>
           </Accordion>
         </div>
+      </div>
+
+      <div className="mx-auto max-w-6xl px-4">
+        <ProductReviews handle={handle} />
       </div>
 
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 p-3 backdrop-blur md:hidden">
