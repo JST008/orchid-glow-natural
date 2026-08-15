@@ -9,20 +9,15 @@ export function isBundle(product: ShopifyProduct) {
   );
 }
 
-/** Best savings across a product's variants, based on compare-at prices. */
+/** Savings on the lowest-priced variant, so it matches the "from" price shown. */
 export function bestSavings(product: ShopifyProduct) {
-  let amount = 0;
-  let percent = 0;
-  for (const { node: v } of product.node.variants.edges) {
-    const compare = v.compareAtPrice ? parseFloat(v.compareAtPrice.amount) : 0;
-    const price = parseFloat(v.price.amount);
-    if (compare > price) {
-      const diff = compare - price;
-      if (diff > amount) {
-        amount = diff;
-        percent = Math.round((diff / compare) * 100);
-      }
-    }
-  }
-  return amount > 0 ? { amount, percent } : null;
+  const variants = product.node.variants.edges.map((e) => e.node);
+  if (variants.length === 0) return null;
+  const cheapest = variants.reduce((a, b) =>
+    parseFloat(b.price.amount) < parseFloat(a.price.amount) ? b : a,
+  );
+  const compare = cheapest.compareAtPrice ? parseFloat(cheapest.compareAtPrice.amount) : 0;
+  const price = parseFloat(cheapest.price.amount);
+  if (compare <= price) return null;
+  return { amount: compare - price, percent: Math.round(((compare - price) / compare) * 100) };
 }
