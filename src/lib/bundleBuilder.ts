@@ -102,3 +102,18 @@ export function withDiscountCode(checkoutUrl: string, code?: string | null) {
     return checkoutUrl;
   }
 }
+
+/** Peso-friendly money: whole numbers stay clean, centavos show 2 decimals. */
+export function formatMoney(value: number, currency = "PHP") {
+  const decimals = Number.isInteger(value) ? 0 : 2;
+  try {
+    return new Intl.NumberFormat("en-PH", {
+      style: "currency",
+      currency,
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    }).format(value);
+  } catch {
+    return `${currency} ${value.toFixed(decimals)}`;
+  }
+}

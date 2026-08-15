@@ -14,6 +14,7 @@ import {
   defaultVariant,
   variantOf,
   withDiscountCode,
+  formatMoney,
   type BuilderSelection,
 } from "@/lib/bundleBuilder";
 
@@ -208,7 +209,7 @@ export function BundleBuilder({
           <span className="text-muted-foreground">
             {totals.itemCount} item{totals.itemCount === 1 ? "" : "s"} selected
           </span>
-          <span>{formatPrice(totals.subtotal, totals.currency)}</span>
+          <span>{formatMoney(totals.subtotal, totals.currency)}</span>
         </div>
 
         {totals.discount > 0 && (
@@ -216,7 +217,7 @@ export function BundleBuilder({
             <span className="flex items-center gap-1.5">
               <Sparkles className="h-4 w-4" /> Bundle discount ({totals.percent}%)
             </span>
-            <span>−{formatPrice(totals.discount, totals.currency)}</span>
+            <span>−{formatMoney(totals.discount, totals.currency)}</span>
           </div>
         )}
 
@@ -224,12 +225,12 @@ export function BundleBuilder({
           <div>
             <p className="text-xs uppercase tracking-widest text-muted-foreground">Your bundle price</p>
             <p className="text-3xl font-semibold text-primary">
-              {formatPrice(totals.total, totals.currency)}
+              {formatMoney(totals.total, totals.currency)}
             </p>
           </div>
           {totals.discount > 0 && (
             <Badge className="rounded-full text-sm">
-              Save {formatPrice(totals.discount, totals.currency)}
+              Save {formatMoney(totals.discount, totals.currency)}
             </Badge>
           )}
         </div>
