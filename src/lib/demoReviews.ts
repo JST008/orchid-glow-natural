@@ -115,7 +115,7 @@ const BY_HANDLE: Record<string, DemoReview[]> = {
       body:
         "Maganda ang pump, walang tapon. Konting white cast lang sa umpisa pero nawawala after a minute. Solid para sa daily use.",
     },
-    GENERIC[2],
+    ...GENERIC.slice(2),
   ],
   "orchid-glow-aaa-sunscreen-spf-50-50ml": [
     {
@@ -138,7 +138,7 @@ const BY_HANDLE: Record<string, DemoReview[]> = {
       body:
         "Matte finish, hindi oily kahit sa tanghali. Compact ang 50mL kaya kasya sa bag. Fast shipping papuntang Baguio, 4 days.",
     },
-    GENERIC[0],
+    ...GENERIC.slice(0, 1),
   ],
 };
 
