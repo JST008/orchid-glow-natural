@@ -93,3 +93,11 @@ export function recommendBundle(
     return parseFloat(a.price.amount) - parseFloat(b.price.amount);
   })[0];
 }
+
+export function variantLabel(rec: BundleRecommendation) {
+  const variant = rec.product.node.variants.edges
+    .map((e) => e.node)
+    .find((v) => v.id === rec.variantId);
+  if (!variant || variant.title.toLowerCase() === "default title") return "Bundle set";
+  return variant.title;
+}
