@@ -51,9 +51,9 @@ export function defaultVariant(product: ShopifyProduct) {
   const variants = product.node.variants.edges.map((e) => e.node);
   const sellable = variants.filter((v) => v.availableForSale);
   const pool = sellable.length > 0 ? sellable : variants;
-  return pool.reduce(
-    (a, b) => (parseFloat(b.price.amount) < parseFloat(a.price.amount) ? b : a),
-    pool[0],
+  return pool.reduce<(typeof pool)[number] | undefined>(
+    (a, b) => (!a || parseFloat(b.price.amount) < parseFloat(a.price.amount) ? b : a),
+    undefined,
   );
 }
 

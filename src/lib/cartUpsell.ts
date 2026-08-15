@@ -64,9 +64,9 @@ export function recommendBundle(
       const variants = p.node.variants.edges.map((e) => e.node);
       const sellable = variants.filter((v) => v.availableForSale);
       const pool = sellable.length > 0 ? sellable : variants;
-      const variant = pool.reduce(
-        (a, b) => (parseFloat(b.price.amount) < parseFloat(a.price.amount) ? b : a),
-        pool[0],
+      const variant = pool.reduce<(typeof pool)[number] | undefined>(
+        (a, b) => (!a || parseFloat(b.price.amount) < parseFloat(a.price.amount) ? b : a),
+        undefined,
       );
       if (!variant) return null;
       const savings = bestSavings(p);
@@ -85,13 +85,14 @@ export function recommendBundle(
 
   if (candidates.length === 0) return null;
 
-  return candidates.sort((a, b) => {
+  const sorted = candidates.sort((a, b) => {
     const aCover = a.covers.filter((s) => missing.includes(s)).length;
     const bCover = b.covers.filter((s) => missing.includes(s)).length;
     if (aCover !== bCover) return bCover - aCover;
     if (a.savings !== b.savings) return b.savings - a.savings;
     return parseFloat(a.price.amount) - parseFloat(b.price.amount);
-  })[0];
+  });
+  return sorted[0] ?? null;
 }
 
 export function variantLabel(rec: BundleRecommendation) {
