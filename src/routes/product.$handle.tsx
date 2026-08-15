@@ -129,6 +129,12 @@ function ProductPage() {
             <span className="text-3xl font-semibold text-primary">
               {variant && formatPrice(variant.price.amount, variant.price.currencyCode)}
             </span>
+            {variant?.compareAtPrice &&
+              parseFloat(variant.compareAtPrice.amount) > parseFloat(variant.price.amount) && (
+                <span className="text-base text-muted-foreground line-through">
+                  {formatPrice(variant.compareAtPrice.amount, variant.compareAtPrice.currencyCode)}
+                </span>
+              )}
             {variant?.availableForSale ? (
               <Badge variant="secondary">In stock</Badge>
             ) : (
@@ -160,6 +166,12 @@ function ProductPage() {
                     <span className="block text-sm font-medium">{v.title}</span>
                     <span className="block text-xs text-muted-foreground">
                       {formatPrice(v.price.amount, v.price.currencyCode)}
+                      {v.compareAtPrice &&
+                        parseFloat(v.compareAtPrice.amount) > parseFloat(v.price.amount) && (
+                          <span className="ml-1.5 line-through">
+                            {formatPrice(v.compareAtPrice.amount, v.compareAtPrice.currencyCode)}
+                          </span>
+                        )}
                     </span>
                   </button>
                 ))}
