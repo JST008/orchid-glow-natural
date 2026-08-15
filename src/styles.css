@@ -175,6 +175,14 @@
   background-image: var(--gradient-brand);
 }
 
+@utility bg-brand-soft {
+  background-image: var(--gradient-hero);
+}
+
+@utility shadow-glow {
+  box-shadow: 0 24px 60px -24px oklch(0.4 0.145 320 / 0.35);
+}
+
 @utility shadow-soft {
   box-shadow: var(--shadow-soft);
 }
