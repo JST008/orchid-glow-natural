@@ -1,8 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ProductCard } from "@/components/store/ProductCard";
 import { TrustBar } from "@/components/store/TrustBar";
 import { productsQuery } from "@/lib/productQueries";
+import { isBundle } from "@/lib/bundles";
 
 export const Route = createFileRoute("/shop")({
   head: () => ({
@@ -26,8 +27,10 @@ export const Route = createFileRoute("/shop")({
 
 function ShopPage() {
   const { data: products } = useSuspenseQuery(productsQuery);
-  const soaps = products.filter((p) => /soap/i.test(p.node.title));
-  const bodyCare = products.filter((p) => !/soap/i.test(p.node.title));
+  const bundles = products.filter(isBundle);
+  const singles = products.filter((p) => !isBundle(p));
+  const soaps = singles.filter((p) => /soap/i.test(p.node.title));
+  const bodyCare = singles.filter((p) => !/soap/i.test(p.node.title));
 
   return (
     <div>
@@ -45,7 +48,28 @@ function ShopPage() {
         <p className="py-20 text-center text-muted-foreground">No products found</p>
       ) : (
         <>
-          <section id="soaps" className="mx-auto max-w-6xl scroll-mt-32 px-4 py-14">
+          {bundles.length > 0 && (
+            <section id="bundles" className="mx-auto max-w-6xl scroll-mt-32 px-4 py-14">
+              <div className="flex flex-wrap items-end justify-between gap-3">
+                <div>
+                  <h2 className="text-2xl">Bundles &amp; sets</h2>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Best value · save up to ₱135 vs buying separately
+                  </p>
+                </div>
+                <Link to="/bundles" className="text-sm font-medium text-primary hover:underline">
+                  See all bundles
+                </Link>
+              </div>
+              <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {bundles.map((p) => (
+                  <ProductCard key={p.node.id} product={p} />
+                ))}
+              </div>
+            </section>
+          )}
+
+          <section id="soaps" className="mx-auto max-w-6xl scroll-mt-32 px-4 pb-14">
             <h2 className="text-2xl">Soaps</h2>
             <p className="mt-2 text-sm text-muted-foreground">70g bars · from ₱109</p>
             <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
