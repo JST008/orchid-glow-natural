@@ -12,13 +12,16 @@ import { Badge } from "@/components/ui/badge";
 import { BadgeCheck, Loader2, Lock, Minus, Plus, ShoppingBag, Truck } from "lucide-react";
 import { formatPrice } from "@/lib/shopify";
 import { productQuery } from "@/lib/productQueries";
+import { productsQuery } from "@/lib/productQueries";
 import { useCartStore } from "@/stores/cartStore";
 import { ProductReviews } from "@/components/store/ProductReviews";
+import { BundleBuilder } from "@/components/store/BundleBuilder";
 
 export const Route = createFileRoute("/product/$handle")({
   loader: async ({ context, params }) => {
     const product = await context.queryClient.ensureQueryData(productQuery(params.handle));
     if (!product) throw notFound();
+    await context.queryClient.ensureQueryData(productsQuery);
     return { product };
   },
   head: ({ loaderData }) => {
@@ -255,6 +258,13 @@ function ProductPage() {
             </AccordionItem>
           </Accordion>
         </div>
+      </div>
+
+      <div className="mx-auto max-w-6xl px-4">
+        <BundleBuilder
+          title="Build your own bundle and save"
+          preselectHandle={handle}
+        />
       </div>
 
       <div className="mx-auto max-w-6xl px-4">

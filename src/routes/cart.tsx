@@ -3,6 +3,7 @@ import { Loader2, Lock, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
+import { CartUpsell } from "@/components/store/CartUpsell";
 
 export const Route = createFileRoute("/cart")({
   head: () => ({
@@ -82,6 +83,8 @@ function CartPage() {
               </div>
             </div>
           ))}
+
+          <CartUpsell />
 
           <div className="rounded-2xl border border-border bg-card p-5">
             <div className="flex items-center justify-between">

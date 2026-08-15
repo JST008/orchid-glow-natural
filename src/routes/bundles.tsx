@@ -6,6 +6,7 @@ import { ProductCard } from "@/components/store/ProductCard";
 import { TrustBar } from "@/components/store/TrustBar";
 import { productsQuery } from "@/lib/productQueries";
 import { isBundle } from "@/lib/bundles";
+import { BundleBuilder } from "@/components/store/BundleBuilder";
 
 export const Route = createFileRoute("/bundles")({
   head: () => ({
@@ -73,6 +74,10 @@ function BundlesPage() {
             ))}
           </div>
         )}
+
+        <div className="mt-14" id="bundle-builder">
+          <BundleBuilder title="Build your own bundle" />
+        </div>
 
         <div className="mt-12 rounded-2xl border border-border bg-secondary/40 p-6 text-center">
           <h2 className="text-2xl">Prefer to start with one bar?</h2>

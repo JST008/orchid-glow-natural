@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/sheet";
 import { useCartStore } from "@/stores/cartStore";
 import { formatPrice } from "@/lib/shopify";
+import { CartUpsell } from "@/components/store/CartUpsell";
 
 export function CartDrawer() {
   const [isOpen, setIsOpen] = useState(false);
@@ -123,6 +124,9 @@ export function CartDrawer() {
                       </div>
                     </div>
                   ))}
+                </div>
+                <div className="mt-4">
+                  <CartUpsell onNavigate={() => setIsOpen(false)} />
                 </div>
               </div>
 
