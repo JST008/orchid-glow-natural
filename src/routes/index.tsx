@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/store/ProductCard";
 import { TrustBar } from "@/components/store/TrustBar";
 import { productsQuery } from "@/lib/productQueries";
+import { isBundle } from "@/lib/bundles";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -36,7 +37,8 @@ const steps = [
 
 function Index() {
   const { data: products } = useSuspenseQuery(productsQuery);
-  const featured = products.slice(0, 6);
+  const bundles = products.filter(isBundle);
+  const featured = products.filter((p) => !isBundle(p)).slice(0, 6);
   const heroImage = featured[0]?.node.images.edges[0]?.node.url;
 
   return (
@@ -108,6 +110,35 @@ function Index() {
           </Button>
         </div>
       </section>
+
+      {bundles.length > 0 && (
+        <section className="border-y border-border bg-brand-soft py-16">
+          <div className="mx-auto max-w-6xl px-4">
+            <div className="text-center">
+              <p className="text-xs font-medium uppercase tracking-[0.22em] text-primary">
+                Best value
+              </p>
+              <h2 className="mt-3 text-3xl">Bundle up and save</h2>
+              <p className="mx-auto mt-3 max-w-lg text-sm text-muted-foreground">
+                Complete sets priced lower than buying each item separately — duos from ₱199, the
+                4-soap sampler at ₱379, and the full routine at ₱849 (save ₱135).
+              </p>
+            </div>
+            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {bundles.slice(0, 3).map((p) => (
+                <ProductCard key={p.node.id} product={p} />
+              ))}
+            </div>
+            <div className="mt-10 text-center">
+              <Button asChild className="h-12 px-8">
+                <Link to="/bundles">
+                  See all bundles <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="border-y border-border bg-secondary/40 py-16">
         <div className="mx-auto max-w-6xl px-4">
