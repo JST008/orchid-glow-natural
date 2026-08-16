@@ -39,8 +39,11 @@ export function ProductReviews({ handle }: { handle: string }) {
       </div>
 
       <p className="mt-3 rounded-xl bg-secondary/50 p-3 text-xs leading-relaxed text-muted-foreground">
-        Reviews from customers who ordered directly from us. Bought this product? Message us on
-        Facebook or Viber and we&apos;ll publish your review here too.
+        Reviews from customers who ordered directly from us. Bought this product? Message us on{" "}
+        <a href="https://www.facebook.com/profile.php?id=61593590092571" target="_blank" rel="noopener noreferrer" className="text-primary underline">Facebook</a>
+        {" "}or Viber/SMS{" "}
+        <a href="tel:+639171476968" className="text-primary underline">0917 147 6968</a>
+        {" "}and we&apos;ll publish your review here too.
       </p>
 
       <ul className="mt-6 space-y-4">
