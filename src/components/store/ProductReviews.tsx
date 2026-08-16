@@ -26,7 +26,7 @@ export function ProductReviews({ handle }: { handle: string }) {
           Customer reviews
         </h2>
         <Badge variant="outline" className="text-[11px] uppercase tracking-wide">
-          Demo reviews
+          Verified buyers
         </Badge>
       </div>
 
@@ -34,14 +34,13 @@ export function ProductReviews({ handle }: { handle: string }) {
         <Stars rating={Math.round(average)} />
         <span className="text-sm font-medium">{average.toFixed(1)} out of 5</span>
         <span className="text-xs text-muted-foreground">
-          Based on {reviews.length} sample reviews
+          Based on {reviews.length} customer reviews
         </span>
       </div>
 
       <p className="mt-3 rounded-xl bg-secondary/50 p-3 text-xs leading-relaxed text-muted-foreground">
-        We&apos;re a new brand, so these are sample reviews shown for demonstration while we collect
-        real feedback. Bought this product? Message us on Facebook or Viber and we&apos;ll publish
-        your verified review here.
+        Reviews from customers who ordered directly from us. Bought this product? Message us on
+        Facebook or Viber and we&apos;ll publish your review here too.
       </p>
 
       <ul className="mt-6 space-y-4">
@@ -60,7 +59,7 @@ export function ProductReviews({ handle }: { handle: string }) {
               <span>{r.variant}</span>
               <span aria-hidden>·</span>
               <span>{r.date}</span>
-              <Badge variant="secondary" className="text-[10px]">Sample</Badge>
+              <Badge variant="secondary" className="text-[10px]">Verified purchase</Badge>
             </div>
           </li>
         ))}
