@@ -37,10 +37,20 @@ export function Footer() {
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-wide">Get in touch</h3>
           <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
-            <li className="flex items-center gap-2"><Facebook className="h-4 w-4" /> Facebook: Orchid Glow</li>
-            <li className="flex items-center gap-2"><Instagram className="h-4 w-4" /> Instagram: coming soon</li>
-            <li className="flex items-center gap-2"><MessageCircle className="h-4 w-4" /> Viber / SMS: to be added</li>
-            <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> Email: to be added</li>
+            <li className="flex items-center gap-2">
+              <Facebook className="h-4 w-4" />
+              <a href="https://www.facebook.com/profile.php?id=61593590092571" target="_blank" rel="noopener noreferrer" className="hover:text-primary">Facebook: Orchid Glow</a>
+            </li>
+            <li className="flex items-center gap-2">
+              <Instagram className="h-4 w-4" /> Instagram: coming soon
+            </li>
+            <li className="flex items-center gap-2">
+              <MessageCircle className="h-4 w-4" /> Viber / SMS: 0917 147 6968
+            </li>
+            <li className="flex items-center gap-2">
+              <Mail className="h-4 w-4" />
+              <a href="mailto:jstamayo.008@gmail.com" className="hover:text-primary">Email: jstamayo.008@gmail.com</a>
+            </li>
           </ul>
           <Link to="/contact" className="mt-3 inline-block text-sm font-medium text-primary hover:underline">
             Message us →
