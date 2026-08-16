@@ -35,12 +35,18 @@ function ContactPage() {
       </p>
 
       <div className="mt-8 space-y-4">
-        {channels.map(({ icon: Icon, label, value }) => (
+        {channels.map(({ icon: Icon, label, value, href }) => (
           <div key={label} className="flex items-start gap-3 rounded-2xl border border-border bg-card p-4">
             <Icon className="mt-0.5 h-5 w-5 text-primary" />
             <div>
               <p className="text-sm font-medium">{label}</p>
-              <p className="text-sm text-muted-foreground">{value}</p>
+              {href ? (
+                <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined} className="text-sm text-primary hover:underline">
+                  {value}
+                </a>
+              ) : (
+                <p className="text-sm text-muted-foreground">{value}</p>
+              )}
             </div>
           </div>
         ))}
