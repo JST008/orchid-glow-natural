@@ -22,7 +22,7 @@ const channels = [
   { icon: Facebook, label: "Facebook", value: "Orchid Glow Natural Skin", href: "https://www.facebook.com/profile.php?id=61593590092571" },
   { icon: MessageCircle, label: "Viber / SMS", value: "0917 147 6968", href: "tel:+639171476968" },
   { icon: Instagram, label: "Instagram", value: "Coming soon" },
-  { icon: Mail, label: "Email", value: "jstamayo.008@gmail.com", href: "mailto:jstamayo.008@gmail.com" },
+  { icon: Mail, label: "Email", value: "orchidglow.natural@gmail.com", href: "mailto:orchidglow.natural@gmail.com" },
 ];
 
 function ContactPage() {

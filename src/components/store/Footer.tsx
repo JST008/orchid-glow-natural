@@ -49,7 +49,7 @@ export function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <Mail className="h-4 w-4" />
-              <a href="mailto:jstamayo.008@gmail.com" className="hover:text-primary">Email: jstamayo.008@gmail.com</a>
+              <a href="mailto:orchidglow.natural@gmail.com" className="hover:text-primary">Email: orchidglow.natural@gmail.com</a>
             </li>
           </ul>
           <Link to="/contact" className="mt-3 inline-block text-sm font-medium text-primary hover:underline">
