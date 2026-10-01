@@ -7,6 +7,9 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  // Build for Vercel (Nitro's Vercel preset emits .vercel/output). Lovable's own
+  // sandbox build ignores this and still targets Cloudflare, so editing in Lovable keeps working.
+  nitro: { preset: "vercel" },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
